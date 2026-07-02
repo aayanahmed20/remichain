@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}RemiChain — Surplus medical supplies, matched to need{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <h1>Connecting surplus medical supplies with those who need them most.</h1>
+  <p>
+    Clinics, pharmacies, and hospitals throw away usable medication and equipment
+    every day while nearby facilities go without. RemiChain matches surplus to need,
+    automatically, before it's too late.
+  </p>
+  <div class="cta-group">
+    <a class="btn btn-primary" href="{{ url_for('donations.donate') }}">List a Donation</a>
+    <a class="btn btn-secondary" href="{{ url_for('requests.request_supply') }}">Request Supplies</a>
+  </div>
+</section>
+
+<section class="stats-grid">
+  <div class="stat-card">
+    <span class="stat-number">{{ stats.facilities }}</span>
+    <span class="stat-label">Registered Facilities</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">{{ stats.available_donations }}</span>
+    <span class="stat-label">Available Donations</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">{{ stats.open_requests }}</span>
+    <span class="stat-label">Open Requests</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-number">{{ stats.matches_made }}</span>
+    <span class="stat-label">Matches Made</span>
+  </div>
+</section>
+
+<section class="how-it-works">
+  <h2>How it works</h2>
+  <ol>
+    <li><strong>Donate</strong> — facilities list surplus medication, PPE, or equipment before it expires or gathers dust.</li>
+    <li><strong>Request</strong> — facilities in need post what they're short on, with an urgency level.</li>
+    <li><strong>Match</strong> — the engine scores every donation against every open request by urgency, expiry, distance, and quantity fit, and proposes the best pairing.</li>
+  </ol>
+</section>
+{% endblock %}

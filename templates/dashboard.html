@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — RemiChain{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+
+<section>
+  <h2>Recent Matches</h2>
+  {% if matches %}
+  <table class="data-table">
+    <thead><tr><th>Donation</th><th>Request</th><th>Matched Qty</th><th>Score</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for m in matches %}
+      <tr>
+        <td>{{ m.donation.item_name }} (#{{ m.donation.id }})</td>
+        <td>{{ m.request.item_name }} (#{{ m.request.id }})</td>
+        <td>{{ m.matched_quantity }}</td>
+        <td>{{ "%.2f"|format(m.score) }}</td>
+        <td><span class="badge badge-{{ m.status }}">{{ m.status }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No matches yet — list a donation or post a request to get started.</p>
+  {% endif %}
+</section>
+
+<section>
+  <h2>Available Donations</h2>
+  {% if donations %}
+  <table class="data-table">
+    <thead><tr><th>Item</th><th>Category</th><th>Qty</th><th>Expiry</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for d in donations %}
+      <tr>
+        <td>{{ d.item_name }}</td>
+        <td>{{ d.category }}</td>
+        <td>{{ d.quantity }} {{ d.unit }}</td>
+        <td>{{ d.expiry_date or "—" }}</td>
+        <td><span class="badge badge-{{ d.status }}">{{ d.status }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No donations listed yet.</p>
+  {% endif %}
+</section>
+
+<section>
+  <h2>Open Requests</h2>
+  {% if requests %}
+  <table class="data-table">
+    <thead><tr><th>Item</th><th>Category</th><th>Qty Needed</th><th>Urgency</th><th>Status</th></tr></thead>
+    <tbody>
+      {% for r in requests %}
+      <tr>
+        <td>{{ r.item_name }}</td>
+        <td>{{ r.category }}</td>
+        <td>{{ r.quantity_needed }} {{ r.unit }}</td>
+        <td><span class="badge badge-urgency-{{ r.urgency }}">{{ r.urgency }}</span></td>
+        <td><span class="badge badge-{{ r.status }}">{{ r.status }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">No requests posted yet.</p>
+  {% endif %}
+</section>
+{% endblock %}
