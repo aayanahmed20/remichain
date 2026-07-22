@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}RemiChain{% endblock %}</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="RemiChain matches surplus medical supplies with the facilities that need them most.">
+<title>{% block title %}RemiChain{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <nav class="navbar">
-    <a href="{{ url_for('main.index') }}" class="brand">RemiChain</a>
-    <div class="nav-links">
-      <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
-      <a href="{{ url_for('donations.donate') }}">Donate Supplies</a>
-      <a href="{{ url_for('requests.request_supply') }}">Request Supplies</a>
-    </div>
-  </nav>
+<nav class="navbar">
+<a href="{{ url_for('main.index') }}" class="brand">RemiChain</a>
+<button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false" type="button">&#9776;</button>
+<div class="nav-links" id="navLinks">
+<a href="{{ url_for('main.index') }}">Home</a>
+<a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+<a href="{{ url_for('donations.donate') }}">Donate Supplies</a>
+<a href="{{ url_for('requests.request_supply') }}">Request Supplies</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode" type="button">&#127769;</button>
+</div>
+</nav>
 
-  <main class="container">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        {% for category, message in messages %}
-          <div class="flash flash-{{ category }}">{{ message }}</div>
-        {% endfor %}
-      {% endif %}
-    {% endwith %}
+<main class="container">
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+<div class="flash-stack">
+{% for category, message in messages %}
+<div class="flash flash-{{ category }}" role="alert">
+<span>{{ message }}</span>
+<button class="flash-close" aria-label="Dismiss" type="button">&times;</button>
+</div>
+{% endfor %}
+</div>
+{% endif %}
+{% endwith %}
 
-    {% block content %}{% endblock %}
-  </main>
+{% block content %}{% endblock %}
+</main>
 
-  <footer>
-    <p>RemiChain &middot; Built for SDG 3: Good Health and Well-being</p>
-  </footer>
+<button id="backToTop" class="back-to-top" aria-label="Back to top" title="Back to top" type="button">&uarr;</button>
+
+<footer>
+<p>RemiChain &middot; Built for SDG 3: Good Health and Well-being &middot; <span id="year"></span></p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
