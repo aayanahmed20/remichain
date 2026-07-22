@@ -4,52 +4,53 @@
 {% block content %}
 <h1>List a Surplus Donation</h1>
 <form method="POST" class="form-card">
-  <label>Facility
-    <select name="facility_id" required>
-      {% for f in facilities %}
-        <option value="{{ f.id }}">{{ f.name }} — {{ f.city }}</option>
-      {% endfor %}
-    </select>
-  </label>
+<label>Facility
+<select name="facility_id" required>
+{% for f in facilities %}
+<option value="{{ f.id }}">{{ f.name }} — {{ f.city }}</option>
+{% endfor %}
+</select>
+</label>
 
-  <label>Item name
-    <input type="text" name="item_name" placeholder="e.g. Amoxicillin 500mg" required>
-  </label>
+<label>Item name
+<input type="text" name="item_name" placeholder="e.g. Amoxicillin 500mg" required>
+</label>
 
-  <label>Category
-    <select name="category" required>
-      <option value="medication">Medication</option>
-      <option value="ppe">PPE</option>
-      <option value="equipment">Equipment</option>
-      <option value="consumable">Consumable</option>
-    </select>
-  </label>
+<label>Category
+<select name="category" required>
+<option value="medication">Medication</option>
+<option value="ppe">PPE</option>
+<option value="equipment">Equipment</option>
+<option value="consumable">Consumable</option>
+</select>
+</label>
 
-  <div class="form-row">
-    <label>Quantity
-      <input type="number" name="quantity" min="1" required>
-    </label>
-    <label>Unit
-      <input type="text" name="unit" value="units">
-    </label>
-  </div>
+<div class="form-row">
+<label>Quantity
+<input type="number" name="quantity" min="1" required>
+</label>
+<label>Unit
+<input type="text" name="unit" value="units">
+</label>
+</div>
 
-  <label>Expiry date (leave blank for durable equipment)
-    <input type="date" name="expiry_date">
-  </label>
+<label>Expiry date (leave blank for durable equipment)
+<input type="date" name="expiry_date">
+</label>
 
-  <label>Condition
-    <select name="condition">
-      <option value="new">New</option>
-      <option value="like_new">Like New</option>
-      <option value="used_functional">Used, Functional</option>
-    </select>
-  </label>
+<label>Condition
+<select name="condition">
+<option value="new">New</option>
+<option value="like_new">Like New</option>
+<option value="used_functional">Used, Functional</option>
+</select>
+</label>
 
-  <label>Notes
-    <textarea name="notes" rows="3" placeholder="Storage requirements, pickup availability, etc."></textarea>
-  </label>
+<label>Notes
+<textarea name="notes" id="donateNotes" rows="3" maxlength="280" placeholder="Storage requirements, pickup availability, etc."></textarea>
+<span class="char-counter" data-for="donateNotes">0/280</span>
+</label>
 
-  <button type="submit" class="btn btn-primary">List Donation</button>
+<button type="submit" class="btn btn-primary">List Donation</button>
 </form>
 {% endblock %}
