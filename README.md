@@ -25,15 +25,6 @@ Facilities list surplus supplies as donations and log what they need as requests
 - Flask-SQLAlchemy (SQLite by default)
 - pytest for the matching engine tests
 
-## Getting started
-
-```bash
-pip install -r requirements.txt
-python run.py
-```
-
-Then open `http://localhost:5000`. The app creates its SQLite database and seeds a few sample facilities automatically on first run.
-
 ## Project structure
 
 - `app/models/` - Facility, SupplyDonation, SupplyRequest, Match
