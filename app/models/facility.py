@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from app import db
 
@@ -17,7 +17,7 @@ class Facility(db.Model):
     longitude = db.Column(db.Float, nullable=True)
     contact_email = db.Column(db.String(150), nullable=True)
     verified = db.Column(db.Boolean, default=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     donations = db.relationship("SupplyDonation", backref="facility", lazy=True)
     requests = db.relationship("SupplyRequest", backref="facility", lazy=True)

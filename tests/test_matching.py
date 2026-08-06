@@ -70,6 +70,10 @@ def test_high_urgency_and_near_expiry_scores_highly(app, facilities):
                                       category="medication", quantity_needed=50, urgency="critical")
         req_low = SupplyRequest(facility_id=recipient_id, item_name="Amoxicillin",
                                  category="medication", quantity_needed=50, urgency="low")
+        # score_pair() reads donation.facility / req.facility via the ORM relationship,
+        # which only resolves once the objects are added and committed to the session.
+        db.session.add_all([donation, req_critical, req_low])
+        db.session.commit()
 
         score_critical = score_pair(donation, req_critical, app.config)
         score_low = score_pair(donation, req_low, app.config)

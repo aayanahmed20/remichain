@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from app import db
 
@@ -20,7 +20,7 @@ class SupplyRequest(db.Model):
     status = db.Column(db.String(20), default="open")  # open, partially_fulfilled, fulfilled
     notes = db.Column(db.Text, nullable=True)
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     URGENCY_SCORES = {"low": 1, "medium": 2, "high": 3, "critical": 4}
 

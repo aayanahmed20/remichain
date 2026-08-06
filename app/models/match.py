@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from app import db
 
@@ -16,7 +16,7 @@ class Match(db.Model):
     matched_quantity = db.Column(db.Integer, nullable=False)
     status = db.Column(db.String(20), default="proposed")  # proposed, accepted, completed, rejected
 
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
     donation = db.relationship("SupplyDonation", backref="matches")
     request = db.relationship("SupplyRequest", backref="matches")
