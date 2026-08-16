@@ -1,38 +1,75 @@
 # RemiChain
 
-RemiChain matches surplus medical supplies with the facilities that need them, instead of letting usable equipment and medication expire in storage while other clinics run short. It started as a hackathon project.
+RemiChain matches surplus medical supplies with facilities that need them, helping usable equipment and medication move from storage to care settings before they expire. It is an open-source donation-and-matching prototype intended for research and small-scale deployments.
 
-## Why this exists
+RemiChain received an honorable mention in the GitHub README Generation Hackathon hosted by Present Me Academy (selected from 480+ participants).
 
-Hospitals and clinics regularly end up with supplies they can't use in time - equipment nobody needs right now, medication approaching its expiry date - while other facilities nearby are short on exactly that. RemiChain is a small matching system that tries to close that gap automatically instead of relying on someone noticing and making a few phone calls.
+## Quickstart
 
-## How the matching works
+1. Clone the repository:
 
-Facilities list surplus supplies as donations and log what they need as requests. A matching engine (`app/services/matching.py`) scores every possible donation-to-request pair using four factors: how urgent the request is, how soon the donated item expires, how close the donor and recipient are geographically, and how much of the requested quantity the donation would cover. The weights for each factor are configurable in `config.py`, and the scoring logic is kept simple and readable on purpose rather than clever.
+   git clone https://github.com/aayanahmed20/remichain.git
+   cd remichain
 
-## Features
+2. Create and activate a Python virtual environment, then install requirements:
 
-- List surplus supplies as donations, with quantity, category, and expiry date
-- Log open requests from facilities, with an urgency score
-- Automatic matching engine that proposes the best available match for each request
-- Dashboard showing recent donations, requests, and matches
-- A small JSON API (`/api/donations`, `/api/requests`, `/api/matches`, `/api/run-matching`) for querying and triggering matches
+   python -m venv .venv
+   source .venv/bin/activate   # macOS/Linux
+   .\.venv\Scripts\activate    # Windows
+   pip install -r requirements.txt
 
-## Tech stack
+3. Initialize the database (SQLite by default) and start the server:
 
-- Python
+   export FLASK_APP=app
+   export FLASK_ENV=development
+   flask run
+
+   The app will be available at http://127.0.0.1:5000
+
+## Overview
+
+- Facilities can list surplus supplies as donations (quantity, category, expiry date).
+- Facilities can submit requests for supplies; each request receives an urgency score.
+- A matching engine scores potential donation→request pairs and proposes high-quality matches.
+- A dashboard displays recent donations, requests, and matched proposals.
+
+## Architecture & Tech Stack
+
+- Python 3.10+
 - Flask
 - Flask-SQLAlchemy (SQLite by default)
-- pytest for the matching engine tests
+- pytest for unit tests
 
-## Project structure
+Project structure (important folders):
 
-- `app/models/` - Facility, SupplyDonation, SupplyRequest, Match
-- `app/routes/` - main pages, donation/request forms, JSON API
-- `app/services/matching.py` - the scoring and matching logic
-- `app/services/seed.py` - sample facility data used on first run
-- `tests/test_matching.py` - tests for the matching engine
+- `app/models/` — ORM models (Facility, SupplyDonation, SupplyRequest, Match)
+- `app/routes/` — web routes and JSON API endpoints
+- `app/services/matching.py` — matching and scoring logic
+- `app/services/seed.py` — seed data used on first run
+- `tests/` — test suite for the matching engine
 
-## Status
+## API Endpoints (examples)
 
-The core matching logic and the donate/request/dashboard flow work end to end. There's no authentication yet, so right now anyone can list a donation or request on behalf of any facility - that's the next thing I'd want to fix before this went anywhere near real use.
+- `GET /api/donations` — list donations
+- `GET /api/requests` — list requests
+- `GET /api/matches` — list proposed matches
+- `POST /api/run-matching` — trigger a matching pass
+
+## Running tests
+
+Run the matching engine unit tests:
+
+   pytest -q
+
+## Contributing
+
+Contributions are welcome. Please open issues for bugs or enhancement requests and submit pull requests with clear descriptions and tests where appropriate. Keep changes focused and avoid unrelated formatting edits.
+
+## Security & Data
+
+- This project uses SQLite by default for local development. Do not commit production secrets or large data files to the repository.
+- If you find a security issue, open a private issue describing the problem and remediation steps.
+
+## License
+
+This project is provided under the MIT License. See `LICENSE` for details.
