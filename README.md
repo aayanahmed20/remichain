@@ -1,8 +1,10 @@
 # RemiChain
 
-RemiChain matches surplus medical supplies with the facilities that need them, instead of letting usable equipment and medication expire in storage while other clinics run short.
+![Python](https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/flask-000000?style=for-the-badge&logo=flask&logoColor=white)
+![SQLite](https://img.shields.io/badge/sqlite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-**Honorable mention:** RemiChain received an honorable mention in the GitHub README Generation Hackathon hosted by Present Me Academy (selected from 480+ participants).
+RemiChain matches surplus medical supplies with the facilities that need them, instead of letting usable equipment and medication expire in storage while other clinics run short.
 
 ## Why this exists
 
@@ -34,32 +36,26 @@ Facilities list surplus supplies as donations and log what they need as requests
 - `app/services/matching.py` - the scoring and matching logic
 - `app/services/seed.py` - sample facility data used on first run
 - `tests/test_matching.py` - tests for the matching engine
+- `LICENSE`
 
-## Quickstart
+## Setup
 
-1. Clone the repo
-   ```bash
-   git clone https://github.com/aayanahmed20/remichain.git
-   cd remichain
-   ```
-
-2. Create a venv and install requirements
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate
-   pip install -r requirements.txt
-   ```
-
-3. Run the dev server
-   ```bash
-   export FLASK_APP=remichain.app
-   flask run --reload
-   ```
+```bash
+git clone https://github.com/aayanahmed20/remichain.git
+cd remichain
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+export FLASK_APP=remichain.app
+flask run --reload
+```
 
 Open http://localhost:5000 to view the dashboard.
 
-## UI / UX improvements applied
-- Added a clear Quickstart section and demo command
-- Reorganized README into Overview → Quickstart → Architecture → Usage → Tests → Contributing
-- Added an "Honorable mention" hackathon line in the header
+## Tests
 
+- `tests/test_matching.py` - covers the matching engine: urgency/expiry scoring, expired donations never matching, and ranked results for a request. Run with `pytest tests/`.
+
+## License
+
+MIT — see [LICENSE](LICENSE).
