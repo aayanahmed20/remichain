@@ -68,8 +68,8 @@ def score_pair(donation: SupplyDonation, req: SupplyRequest, cfg) -> float:
     """Weighted score for how good a donation-to-request match is. Higher is better."""
     if donation.item_name.strip().lower() != req.item_name.strip().lower():
         return -1.0  # not the same item at all
-    if donation.expiry_date and donation.expiry_date <= date.today():
-        return -1.0  # never match expired stock
+    if (donation.expiry_date and donation.expiry_date <= date.today()) or req.quantity_needed <= 0:
+        return -1.0  # never match expired stock or malformed request (avoid ZeroDivisionError below)
 
     urgency = req.urgency_score / 4.0  # normalize 0-1
     expiry = _expiry_urgency(donation)
